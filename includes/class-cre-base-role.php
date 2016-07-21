@@ -34,9 +34,10 @@ if ( ! class_exists( 'CRE_Base_Role' ) ) {
 					);
 			}
 
+			if ( method_exists( $this, 'user_has_cap' ) ) {
+				add_filter( 'user_has_cap', array( $this, 'user_has_cap' ), 10, 4 );
+			}
 
-			// TODO add method for map_meta_cap
-			// TODO add method for user_has_cap
 		}
 
 		/**
