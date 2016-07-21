@@ -52,9 +52,11 @@ if ( ! class_exists( 'CRE_Dashboard_Widget' ) ) {
 					</tbody>
 				</table>
 
-				<p>
-					<a href="<?php echo esc_url( $flush_roles_url ); ?>">Flush Roles</a>
-				</p>
+				<?php if ( current_user_can( 'cre_flush_roles' ) ) : ?>
+					<p>
+						<a href="<?php echo esc_url( $flush_roles_url ); ?>">Flush Roles</a>
+					</p>
+				<?php endif; ?>
 
 			<?php
 
@@ -63,7 +65,7 @@ if ( ! class_exists( 'CRE_Dashboard_Widget' ) ) {
 
 		static public function check_flush_roles() {
 			$nonce = filter_input( INPUT_GET, 'cre-flush-roles-nonce', FILTER_SANITIZE_STRING );
-			if ( wp_verify_nonce( $nonce, 'cre-flush-roles' ) ) {
+			if ( current_user_can( 'cre_flush_roles' ) && wp_verify_nonce( $nonce, 'cre-flush-roles' ) ) {
 				cre_flush_roles();
 				wp_safe_redirect( add_query_arg( 'cre-roles-flushed', '1', admin_url( '/' ) ) );
 				exit;

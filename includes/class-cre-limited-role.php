@@ -26,8 +26,14 @@ if ( ! class_exists( 'CRE_Limited_Role' ) ) {
 				// can list and create new pages, but not publish them
 				// 'edit_pages' => true,
 
+				// can edit others pages
+				// 'edit_others_pages' => true,
+
+				// can edit published pages
+				// 'edit_published_pages' => true,
+
 				// custom flush roles capability, handy for the demo
-				// 'cre_flush_roles' => true
+				'cre_flush_roles' => true
 
 				);
 

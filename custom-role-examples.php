@@ -48,7 +48,7 @@ add_action( 'admin_init', 'cre_init_custom_roles' );
  */
 function cre_maybe_flush_roles() {
 
-	$roles_version = '2016-07-20-02';
+	$roles_version = '2016-07-20-03';
 	$flush_roles   = '1' === filter_input( INPUT_GET, 'cre-flush-roles', FILTER_SANITIZE_STRING );
 
 	// Check if the roles version has changed
@@ -76,6 +76,10 @@ function cre_flush_roles() {
 		$role_instance = new $class_name;
 		remove_role( $role_instance->role );
 	}
+
+	// add our custom capability to the admin
+	$administrator = get_role( 'administrator' );
+	$administrator->add_cap( 'cre_flush_roles' );
 
 	// Rerun the init function which will recreate the roles
 	cre_init_custom_roles();
