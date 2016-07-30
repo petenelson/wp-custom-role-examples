@@ -41,7 +41,6 @@ if ( ! class_exists( 'CRE_Limited_Role' ) ) {
 		}
 
 		public function user_has_cap( $allcaps, $caps, $args, $user ) {
-			
 			if ( $this->has_this_role( $user->ID ) ) {
 
 				// args[0] is the cability being tested
