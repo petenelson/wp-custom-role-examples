@@ -14,13 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/includes/class-cre-base-role.php';
 require_once __DIR__ . '/includes/class-cre-limited-role.php';
+require_once __DIR__ . '/includes/class-cre-administrator-role.php';
 require_once __DIR__ . '/includes/class-cre-dashboard-widget.php';
 
 
 // http://isabelcastillo.com/list-capabilities-current-user-wordpress
 
 function cre_get_custom_role_classes() {
-	return array( 'CRE_Limited_Role' );
+	return array( 'CRE_Limited_Role', 'CRE_Administrator_Role' );
 }
 
 /**
