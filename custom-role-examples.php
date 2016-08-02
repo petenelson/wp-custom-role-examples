@@ -75,7 +75,10 @@ function cre_flush_roles() {
 	// Delete existing custom roles
 	foreach( cre_get_custom_role_classes() as $class_name ) {
 		$role_instance = new $class_name;
-		remove_role( $role_instance->role );
+		// Only remove custom roles
+		if ( $role_instance->custom ) {
+			remove_role( $role_instance->role );
+		}
 	}
 
 	// add our custom capability to the admin

@@ -17,6 +17,12 @@ if ( ! class_exists( 'CRE_Base_Role' ) ) {
 		public $display_name;
 
 		/**
+		 * True/false flag for custom roles (vs native)
+		 * @var bool
+		 */
+		public $custom;
+
+		/**
 		 * Initializes the roll
 		 *
 		 * @return void
