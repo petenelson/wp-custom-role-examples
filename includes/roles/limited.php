@@ -19,7 +19,7 @@ function setup() {
 	// add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );
 
 	// Hooks for user_has_cap filter
-	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
 	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_publish_about_us_page', 10, 4 );
 
 }
@@ -169,8 +169,16 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 	}
 
 	// Give the limited role some extra capabilities dynamically.
-	$allcaps['edit_pages']        = true;
+	// $allcaps['edit_pages']        = true;
 	// $allcaps['edit_others_pages'] = true;
+
+	// Capabilities for the book CPT.
+	$allcaps['edit_books']             = true;
+	// $allcaps['edit_othgers_books']     = true;
+	// $allcaps['publish_books']          = true;
+	// $allcaps['edit_published_books']   = true;
+	// $allcaps['delete_books']           = true;
+	// $allcaps['delete_published_books'] = true;
 
 	return $allcaps;
 }

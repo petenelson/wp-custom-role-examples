@@ -16,12 +16,16 @@ require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/dashboard-widget.php';
 require_once __DIR__ . '/includes/roles/limited.php';
 require_once __DIR__ . '/includes/roles/administrator.php';
+require_once __DIR__ . '/includes/post-types/book.php';
 
 // Global functionality
 \Custom_Role_Examples\setup();
 
 // Setup the dashboard widget
 \Custom_Role_Examples\Dashboard_Widget\setup();
+
+// Custom post types
+\Custom_Role_Examples\Post_Types\Book\setup();
 
 // Setup our roles
 \Custom_Role_Examples\Roles\Limited\setup();

@@ -36,6 +36,7 @@ function dashboard_widget() {
 		'edit_others_pages',
 		'edit_published_pages',
 		'publish_pages',
+		'edit_books',
 		);
 
 	?>
