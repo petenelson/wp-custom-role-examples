@@ -1,6 +1,11 @@
 <?php
+/**
+ * Sample code for a new Human Resources role.
+ *
+ * @package custom-role-examples
+ */
 
-namespace Custom_Role_Examples\Roles\Limited;
+namespace Custom_Role_Examples\Roles\HR;
 
 /**
  * Sets up hooks and filters
@@ -9,18 +14,15 @@ namespace Custom_Role_Examples\Roles\Limited;
  */
 function setup() {
 
-	// Hooks for the WP admin_init action
-	add_action( 'admin_init',          __NAMESPACE__ . '\add_limited_role' );
+	// Hooks for the WP plugins_loaded action.
+	add_action( 'plugins_loaded',      __NAMESPACE__ . '\add_hr_role' );
 
-	// Hooks for our custom action
-	add_action( 'cre_flush_roles',     __NAMESPACE__ . '\recreate_limited_role' );
+	// Hooks for map_meta_cap filter.
+	add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );
 
-	// Hooks for map_meta_cap filter
-	// add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );
-
-	// Hooks for user_has_cap filter
+	// Hooks for user_has_cap filter.
 	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
-	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_publish_about_us_page', 10, 4 );
+	add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
 
 }
 
@@ -30,22 +32,22 @@ function setup() {
  * @return string
  */
 function get_role_name() {
-	return 'limited';
+	return 'hr';
 }
 
 /**
- * Adds the Limited role to the site if it does not exist.
+ * Adds the HR role to the site if it does not exist.
  *
  * @return void
  */
-function add_limited_role() {
+function add_hr_role() {
 
-	// Get the Limited role.
+	// Get the HR role.
 	$role = get_role( get_role_name() );
 
 	// Create the role if it does not exist.
 	if ( empty( $role ) ) {
-		add_role( get_role_name(), __( 'Limited Role', 'custom-role-examples' ), get_role_capabilities() );
+		add_role( get_role_name(), __( 'Human Resources', 'custom-role-examples' ), get_role_capabilities() );
 	}
 }
 
@@ -60,48 +62,11 @@ function get_role_capabilities() {
 		// Every user can read
 		'read' => true,
 
-		// can list and create new posts, but not publish them
-		// 'edit_posts' => true,
-
-		// can publish posts
-		// 'publish_posts' => true,
-
-		// can edit their published posts
-		// 'edit_published_posts' => true,
-
-		// can list and create new pages, but not publish them
-		// 'edit_pages' => true,
-
-		// can edit any non-published page not owned by them
-		// 'edit_others_pages' => true,
-
-		// can edit any published page they own
-		// 'edit_published_pages' => true,
-
-		// custom flush roles capability, handy for the demo
-		'cre_flush_roles' => true
-
 		);
 
 	return $caps;
 }
 
-/**
- * Removed and recreates the Limited role.
- *
- * @return void
- */
-function recreate_limited_role() {
-
-	// Get the Limited role.
-	$role = get_role( get_role_name() );
-
-	// Remove and recreate the role.
-	if ( ! empty( $role ) ) {
-		remove_role( get_role_name() );
-		add_limited_role();
-	}
-}
 
 /**
  * Maps a meta capability (such as edit_post) to a primitive
@@ -141,7 +106,7 @@ function map_meta_cap( $required_caps, $cap, $user_id, $args ) {
 		$post = get_post( $post_id );
 
 		// Check if they're editing the About Us page.
-		if ( ! empty( $post ) && 'page' === $post->post_type && 'about-us' === $post->post_name) {
+		if ( ! empty( $post ) && 'page' === $post->post_type && 'current-opening' === $post->post_name) {
 
 			// This tells WP what capabilities the user needs assigned in order to edit this page.
 			// Essentially we're saying: "This user needs the edit_pages primitive capability to edit
@@ -169,16 +134,8 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 	}
 
 	// Give the limited role some extra capabilities dynamically.
-	// $allcaps['edit_pages']        = true;
-	// $allcaps['edit_others_pages'] = true;
-
-	// Capabilities for the book CPT.
-	$allcaps['edit_books']             = true;
-	// $allcaps['edit_othgers_books']     = true;
-	// $allcaps['publish_books']          = true;
-	// $allcaps['edit_published_books']   = true;
-	// $allcaps['delete_books']           = true;
-	// $allcaps['delete_published_books'] = true;
+	$allcaps['edit_pages']        = true;
+	//$allcaps['edit_others_pages'] = true;
 
 	return $allcaps;
 }
@@ -191,7 +148,7 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
  * @param array   $args    Optional parameters passed to has_cap(), typically object ID.
  * @param WP_User $user    The user object.
  */
-function can_publish_about_us_page( $allcaps, $caps, $args, $user ) {
+function can_edit_current_openings_page( $allcaps, $caps, $args, $user ) {
 
 	if ( ! \Custom_Role_Examples\user_has_role( $user->ID, get_role_name() ) ) {
 		return $allcaps;
@@ -210,9 +167,18 @@ function can_publish_about_us_page( $allcaps, $caps, $args, $user ) {
 	$post = get_post( $object_id );
 	if ( ! empty( $post ) && 'page' === $post->post_type ) {
 
-		// Give the user the capability to publish the About Us page
-		if ( 'about-us' === $post->post_name ) {
-			$allcaps['publish_pages'] = true;
+		// Give the user the capability to publish the Current Openings page
+		if ( 'current-openings' === $post->post_name ) {
+
+			// Can edit Current Openings regardless of who owns it.
+			$allcaps['edit_others_pages']    = true;
+
+			// Can edit Current Openings if it's published.
+			$allcaps['edit_published_pages'] = true;
+
+			// Can publish Current Openings if it's not published.
+			$allcaps['publish_pages']        = true;
+
 		}
 
 	}

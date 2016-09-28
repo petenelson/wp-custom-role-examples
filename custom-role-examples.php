@@ -14,7 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/dashboard-widget.php';
-require_once __DIR__ . '/includes/roles/limited.php';
+require_once __DIR__ . '/includes/roles/hr.php';
+require_once __DIR__ . '/includes/roles/book-editor.php';
 require_once __DIR__ . '/includes/roles/administrator.php';
 require_once __DIR__ . '/includes/post-types/book.php';
 
@@ -28,5 +29,6 @@ require_once __DIR__ . '/includes/post-types/book.php';
 \Custom_Role_Examples\Post_Types\Book\setup();
 
 // Setup our roles
-\Custom_Role_Examples\Roles\Limited\setup();
+\Custom_Role_Examples\Roles\HR\setup();
+\Custom_Role_Examples\Roles\Book_Editor\setup();
 \Custom_Role_Examples\Roles\Administrator\setup();

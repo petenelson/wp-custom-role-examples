@@ -31,7 +31,7 @@ function register_book_cpt() {
 		'has_archive'        => false,
 		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
 		'rewrite'            => array( 'slug' => 'book' ),
-
+		'menu_icon'          => 'dashicons-book-alt',
 		'capability_type'    => array( 'book', 'books' ),
 		'map_meta_cap'       => true,
 	);
