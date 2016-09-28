@@ -59,12 +59,35 @@ function add_hr_role() {
 function get_role_capabilities() {
 
 	$caps = array(
-		// Every user can read
+		// Every user can read.
 		'read' => true,
 
 		);
 
 	return $caps;
+}
+
+
+/**
+ * Dynamically filter a user's capabilities.
+ *
+ * @param array   $allcaps An array of all the user's capabilities.
+ * @param array   $caps    Actual capabilities for meta capability.
+ * @param array   $args    Optional parameters passed to has_cap(), typically object ID.
+ * @param WP_User $user    The user object.
+ */
+function add_additional_caps( $allcaps, $caps, $args, $user ) {
+
+	if ( ! \Custom_Role_Examples\user_has_role( $user->ID, get_role_name() ) ) {
+		return $allcaps;
+	}
+
+	// Give the HR role some extra capabilities dynamically.
+
+	// They can list/edit pages.
+	$allcaps['edit_pages']        = true;
+
+	return $allcaps;
 }
 
 
@@ -106,7 +129,7 @@ function map_meta_cap( $required_caps, $cap, $user_id, $args ) {
 		$post = get_post( $post_id );
 
 		// Check if they're editing the About Us page.
-		if ( ! empty( $post ) && 'page' === $post->post_type && 'current-opening' === $post->post_name) {
+		if ( ! empty( $post ) && 'page' === $post->post_type && 'current-openings' === $post->post_name) {
 
 			// This tells WP what capabilities the user needs assigned in order to edit this page.
 			// Essentially we're saying: "This user needs the edit_pages primitive capability to edit
@@ -117,27 +140,6 @@ function map_meta_cap( $required_caps, $cap, $user_id, $args ) {
 	}
 
 	return $required_caps;
-}
-
-/**
- * Dynamically filter a user's capabilities.
- *
- * @param array   $allcaps An array of all the user's capabilities.
- * @param array   $caps    Actual capabilities for meta capability.
- * @param array   $args    Optional parameters passed to has_cap(), typically object ID.
- * @param WP_User $user    The user object.
- */
-function add_additional_caps( $allcaps, $caps, $args, $user ) {
-
-	if ( ! \Custom_Role_Examples\user_has_role( $user->ID, get_role_name() ) ) {
-		return $allcaps;
-	}
-
-	// Give the limited role some extra capabilities dynamically.
-	$allcaps['edit_pages']        = true;
-	//$allcaps['edit_others_pages'] = true;
-
-	return $allcaps;
 }
 
 /**
@@ -154,9 +156,11 @@ function can_edit_current_openings_page( $allcaps, $caps, $args, $user ) {
 		return $allcaps;
 	}
 
-	// args[0] is the cability being tested
-	// args[1] is the user id
-	// args[2] is the object is, such as post ID
+	/**
+	 * args[0] is the cability being tested 
+	 * args[1] is the user id
+	 * args[2] is the object is, such as post ID
+	 */
 
 	$object_id = absint( isset( $args[2] ) ? $args[2] : 0 );
 
@@ -167,7 +171,7 @@ function can_edit_current_openings_page( $allcaps, $caps, $args, $user ) {
 	$post = get_post( $object_id );
 	if ( ! empty( $post ) && 'page' === $post->post_type ) {
 
-		// Give the user the capability to publish the Current Openings page
+		// Give the user the capability to publish the Current Openings page.
 		if ( 'current-openings' === $post->post_name ) {
 
 			// Can edit Current Openings regardless of who owns it.
@@ -178,7 +182,6 @@ function can_edit_current_openings_page( $allcaps, $caps, $args, $user ) {
 
 			// Can publish Current Openings if it's not published.
 			$allcaps['publish_pages']        = true;
-
 		}
 
 	}

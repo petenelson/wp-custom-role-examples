@@ -10,7 +10,7 @@ namespace Custom_Role_Examples\Roles\Administrator;
 function setup() {
 
 	// Hooks for map_meta_cap filter
-	// add_filter( 'map_meta_cap',    __NAMESPACE__ . '\disallow_home_page_edit', 10, 4 );
+	// add_filter( 'map_meta_cap',    __NAMESPACE__ . '\disallow_tos_page_edit', 10, 4 );
 
 	// Hooks for user_has_cap filter
 	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
@@ -63,15 +63,15 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
  * @return array                Returns a list of the caps a user needs in
  *                              order to perform the action.
  */
-function disallow_home_page_edit( $caps, $cap, $user_id, $args ) {
+function disallow_tos_page_edit( $caps, $cap, $user_id, $args ) {
 	if ( \Custom_Role_Examples\user_has_role( $user_id, get_role_name() ) ) {
 
 		if ( isset( $args[0] ) ) {
 			$post = get_post( $args[0] );
 		}
 
-		// If the admin is trying to edit the Home Page, don't allow it.
-		if ( 'edit_post' === $cap && ! empty( $post ) && 'home-page' === $post->post_name ) {
+		// If the admin is trying to edit the Terms of Service page, don't allow it.
+		if ( 'edit_post' === $cap && ! empty( $post ) && 'terms-of-service' === $post->post_name ) {
 			return array( 'do_not_allow' );
 		}
 

@@ -24,7 +24,7 @@ function setup() {
  * @return string
  */
 function get_role_name() {
-	return 'limited-admin';
+	return 'limited_admin';
 }
 
 /**
