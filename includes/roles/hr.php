@@ -18,11 +18,11 @@ function setup() {
 	add_action( 'plugins_loaded',      __NAMESPACE__ . '\add_hr_role' );
 
 	// Hooks for map_meta_cap filter.
-	add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );
+	//add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );
 
 	// Hooks for user_has_cap filter.
-	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
-	add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
+	//add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	//add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
 
 }
 
@@ -73,7 +73,7 @@ function get_role_capabilities() {
  * capability (such as edit_pages)
  *
  * @param array  $required_caps The user's actual capabilities (primitives).
- * @param string $cap           Capability name (usually meta)
+ * @param string $cap           Capability name (usually meta).
  * @param int    $user_id       The user ID.
  * @param array  $args          Adds the context to the cap. Typically the object ID.
  * @return array                Returns a list of the caps a user needs in
