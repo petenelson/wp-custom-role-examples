@@ -18,11 +18,11 @@ function setup() {
 	add_action( 'admin_init',      __NAMESPACE__ . '\add_hr_role' );
 
 	// Hooks for map_meta_cap filter.
-	//add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );
+	// add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );
 
 	// Hooks for user_has_cap filter.
-	//add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
-	//add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
+	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
 
 }
 
@@ -61,7 +61,6 @@ function get_role_capabilities() {
 	$caps = array(
 		// Every user can read.
 		'read' => true,
-
 		);
 
 	return $caps;
@@ -109,20 +108,13 @@ function map_meta_cap( $required_caps, $cap, $user_id, $args ) {
 		return $required_caps;
 	}
 
+	// List of meta caps to check for.
 	$caps_needed = array(
-		// 'edit_post',
-		// 'edit_others_pages',
+		'edit_post',
 		);
 
 	if ( ! in_array( $cap, $caps_needed ) ) {
 		return $required_caps;
-	}
-
-	// Post ID is usually passed as part of $args, but not always (such as edit_others_pages).
-	if ( ! isset( $args[0] ) && isset( $_POST['post_ID'] ) ) {
-		$post_id = absint( $_POST['post_ID'] );
-	} else if ( isset( $args[0] ) ) {
-		$post_id = absint( $args[0] );
 	}
 
 	if ( ! empty( $post_id ) ) {
@@ -164,10 +156,6 @@ function can_edit_current_openings_page( $allcaps, $caps, $args, $user ) {
 
 	$object_id = absint( isset( $args[2] ) ? $args[2] : 0 );
 
-	if ( empty( $object_id ) && isset( $_POST['post_ID'] ) ) {
-		$object_id = absint( $_POST['post_ID'] );
-	}
-
 	$post = get_post( $object_id );
 	if ( ! empty( $post ) && 'page' === $post->post_type ) {
 
@@ -175,13 +163,13 @@ function can_edit_current_openings_page( $allcaps, $caps, $args, $user ) {
 		if ( 'current-openings' === $post->post_name ) {
 
 			// Can edit Current Openings regardless of who owns it.
-			$allcaps['edit_others_pages']    = true;
+			// $allcaps['edit_others_pages']    = true;
 
 			// Can edit Current Openings if it's published.
-			$allcaps['edit_published_pages'] = true;
+			// $allcaps['edit_published_pages'] = true;
 
 			// Can publish Current Openings if it's not published.
-			$allcaps['publish_pages']        = true;
+			// $allcaps['publish_pages']        = true;
 		}
 
 	}

@@ -13,7 +13,7 @@ function setup() {
 	// add_filter( 'map_meta_cap',    __NAMESPACE__ . '\disallow_tos_page_edit', 10, 4 );
 
 	// Hooks for user_has_cap filter
-	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
 }
 
 /**
@@ -39,16 +39,16 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 		return $allcaps;
 	}
 
+	// Capabilities for the book CPT.
+	$allcaps['edit_books']             = true;
+	$allcaps['edit_othgers_books']     = true;
+	$allcaps['publish_books']          = true;
+	$allcaps['edit_published_books']   = true;
+	$allcaps['delete_books']           = true;
+	$allcaps['delete_published_books'] = true;
+
 	// Give the limited role some extra capabilities dynamically.
 	$allcaps['cre_flush_roles']        = true;
-
-	// Capabilities for the book CPT.
-	// $allcaps['edit_books']             = true;
-	// $allcaps['edit_othgers_books']     = true;
-	// $allcaps['publish_books']          = true;
-	// $allcaps['edit_published_books']   = true;
-	// $allcaps['delete_books']           = true;
-	// $allcaps['delete_published_books'] = true;
 
 	return $allcaps;
 }
@@ -66,12 +66,17 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 function disallow_tos_page_edit( $caps, $cap, $user_id, $args ) {
 	if ( \Custom_Role_Examples\user_has_role( $user_id, get_role_name() ) ) {
 
+		$cap_needed = array(
+			'edit_post',
+			// 'delete_post',
+			);
+
 		if ( isset( $args[0] ) ) {
 			$post = get_post( $args[0] );
 		}
 
 		// If the admin is trying to edit the Terms of Service page, don't allow it.
-		if ( 'edit_post' === $cap && ! empty( $post ) && 'terms-of-service' === $post->post_name ) {
+		if ( in_array( $cap, $cap_needed ) && ! empty( $post ) && 'terms-of-service' === $post->post_name ) {
 			return array( 'do_not_allow' );
 		}
 

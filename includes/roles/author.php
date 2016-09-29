@@ -42,8 +42,5 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 	// And the the abilty to publish pages.
 	// $allcaps['publish_pages']        = true;
 
-	// And the abilty to edit published pages.
-	// $allcaps['edit_published_pages'] = true;
-
 	return $allcaps;
 }
