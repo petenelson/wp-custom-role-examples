@@ -15,7 +15,7 @@ namespace Custom_Role_Examples\Roles\HR;
 function setup() {
 
 	// Hooks for the WP plugins_loaded action.
-	add_action( 'plugins_loaded',      __NAMESPACE__ . '\add_hr_role' );
+	add_action( 'admin_init',      __NAMESPACE__ . '\add_hr_role' );
 
 	// Hooks for map_meta_cap filter.
 	//add_filter( 'map_meta_cap',        __NAMESPACE__ . '\map_meta_cap', 10, 4 );

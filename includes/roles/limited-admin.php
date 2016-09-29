@@ -15,7 +15,7 @@ namespace Custom_Role_Examples\Roles\Limited_Admin;
 function setup() {
 
 	// Hooks for the WP plugins_loaded action.
-	add_action( 'plugins_loaded',      __NAMESPACE__ . '\add_limited_admin_role' );
+	add_action( 'admin_init',      __NAMESPACE__ . '\add_limited_admin_role' );
 }
 
 /**
@@ -43,8 +43,10 @@ function add_limited_admin_role() {
 		// Get the admin role.
 		$admin = get_role( 'administrator' );
 
-		// Remove the ability to manage users.
+		// Grab the same capabilities as administrator.
 		$capabilities = $admin->capabilities;
+
+		// But remove the ability to manage users.
 		$capabilities['edit_users']    = false;
 		$capabilities['create_users']  = false;
 		$capabilities['delete_users']  = false;
@@ -53,12 +55,13 @@ function add_limited_admin_role() {
 		$capabilities['add_users']     = false;
 		$capabilities['promote_users'] = false;
 
-		// Remove the capabilities to manage plugins.
-		$capabilities['update_plugins']  = false;
-		$capabilities['delete_plugins']  = false;
-		$capabilities['install_plugins'] = false;
+		// And remove the capabilities to manage plugins.
+		$capabilities['update_plugins']   = false;
+		$capabilities['delete_plugins']   = false;
+		$capabilities['install_plugins']  = false;
 		$capabilities['activate_plugins'] = false;
 
+		// Add the Limited Admin role.
 		add_role( get_role_name(), __( 'Limited Admin', 'custom-role-examples' ), $capabilities );
 	}
 }
