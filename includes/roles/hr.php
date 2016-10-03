@@ -18,8 +18,8 @@ function setup() {
 	add_action( 'admin_init',      __NAMESPACE__ . '\add_hr_role' );
 
 	// Hooks for user_has_cap filter.
-	 // add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
-	 // add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
+	 add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	 add_filter( 'user_has_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
 
 }
 

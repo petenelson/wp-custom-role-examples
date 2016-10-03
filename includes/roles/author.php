@@ -10,7 +10,7 @@ namespace Custom_Role_Examples\Roles\Author;
 function setup() {
 
 	// Hooks for user_has_cap filter
-	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
 }
 
 /**
@@ -40,7 +40,7 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 	$allcaps['edit_pages']           = true;
 
 	// And the the abilty to publish pages.
-	// $allcaps['publish_pages']        = true;
+	$allcaps['publish_pages']        = true;
 
 	return $allcaps;
 }
