@@ -47,7 +47,7 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 	$allcaps['delete_books']           = true;
 	$allcaps['delete_published_books'] = true;
 
-	// Give the limited role some extra capabilities dynamically.
+	// Give the admin some extra capabilities dynamically.
 	$allcaps['cre_flush_roles']        = true;
 
 	return $allcaps;

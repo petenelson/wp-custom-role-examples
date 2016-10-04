@@ -34,8 +34,6 @@ function get_role_name() {
  */
 function add_book_editor_role() {
 
-	remove_role( get_role_name() );
-
 	// Get the Books Editor role.
 	$role = get_role( get_role_name() );
 
