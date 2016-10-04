@@ -18,10 +18,10 @@ function setup() {
 	add_action( 'admin_init',      __NAMESPACE__ . '\add_hr_role' );
 
 	// Hooks for user_has_cap filter.
-	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
 
 	// Hooks for map_meta_cap
-	add_filter( 'map_meta_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
+	// add_filter( 'map_meta_cap',        __NAMESPACE__ . '\can_edit_current_openings_page', 20, 4 );
 
 }
 
@@ -86,7 +86,7 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 	$allcaps['edit_pages']        = true;
 
 	// They can upload files pages.
-	$allcaps['upload_files']      = true;
+	// $allcaps['upload_files']      = true;
 
 	return $allcaps;
 }
@@ -109,9 +109,9 @@ function can_edit_current_openings_page( $caps, $cap, $user_id, $args ) {
 
 	$caps_to_check = array(
 		'edit_post',
-		'edit_published_pages',
-		'edit_others_pages',
-		'publish_pages',
+		// 'edit_published_pages',
+		// 'edit_others_pages',
+		// 'publish_pages',
 		);
 
 	// Only check for specific capalities that WP is trying.
