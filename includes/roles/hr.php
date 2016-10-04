@@ -85,6 +85,9 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 	// They can list/edit pages.
 	$allcaps['edit_pages']        = true;
 
+	// They can upload files pages.
+	$allcaps['upload_files']      = true;
+
 	return $allcaps;
 }
 
