@@ -19,6 +19,7 @@ require_once __DIR__ . '/includes/roles/book-editor.php';
 require_once __DIR__ . '/includes/roles/administrator.php';
 require_once __DIR__ . '/includes/roles/author.php';
 require_once __DIR__ . '/includes/roles/limited-admin.php';
+require_once __DIR__ . '/includes/roles/plugin-role.php';
 require_once __DIR__ . '/includes/post-types/book.php';
 
 // Global functionality
@@ -36,6 +37,7 @@ require_once __DIR__ . '/includes/post-types/book.php';
 \Custom_Role_Examples\Roles\Administrator\setup();
 \Custom_Role_Examples\Roles\Author\setup();
 \Custom_Role_Examples\Roles\Limited_Admin\setup();
+\Custom_Role_Examples\Roles\Plugin_Role\setup();
 
 // require_once __DIR__ . '/includes/roles/uh-oh.php';
 // \Custom_Role_Examples\Roles\Uh_Oh\setup();
