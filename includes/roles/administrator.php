@@ -41,7 +41,7 @@ function add_additional_caps( $allcaps, $caps, $args, $user ) {
 
 	// Capabilities for the book CPT.
 	$allcaps['edit_books']             = true;
-	$allcaps['edit_othgers_books']     = true;
+	$allcaps['edit_others_books']      = true;
 	$allcaps['publish_books']          = true;
 	$allcaps['edit_published_books']   = true;
 	$allcaps['delete_books']           = true;
