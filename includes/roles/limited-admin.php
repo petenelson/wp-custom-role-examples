@@ -15,7 +15,7 @@ namespace Custom_Role_Examples\Roles\Limited_Admin;
 function setup() {
 
 	// Hooks for the WP plugins_loaded action.
-	add_action( 'admin_init', __NAMESPACE__ . '\add_limited_admin_role' );
+	// add_action( 'admin_init', __NAMESPACE__ . '\add_limited_admin_role' );
 }
 
 /**

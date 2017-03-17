@@ -15,7 +15,7 @@ namespace Custom_Role_Examples\Roles\Book_Editor;
 function setup() {
 
 	// Hooks for the WP admin_init action.
-	add_action( 'admin_init',          __NAMESPACE__ . '\add_book_editor_role' );
+	// add_action( 'admin_init',          __NAMESPACE__ . '\add_book_editor_role' );
 }
 
 /**

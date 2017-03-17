@@ -10,7 +10,7 @@ namespace Custom_Role_Examples\Roles\Author;
 function setup() {
 
 	// Hooks for user_has_cap filter
-	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
 }
 
 /**
