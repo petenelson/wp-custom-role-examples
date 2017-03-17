@@ -13,7 +13,7 @@ function setup() {
 	// add_filter( 'map_meta_cap',    __NAMESPACE__ . '\disallow_tos_page_edit', 10, 4 );
 
 	// Hooks for user_has_cap filter
-	add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
+	// add_filter( 'user_has_cap',        __NAMESPACE__ . '\add_additional_caps', 10, 4 );
 }
 
 /**
