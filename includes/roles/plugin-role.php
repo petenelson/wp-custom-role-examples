@@ -15,7 +15,7 @@ namespace Custom_Role_Examples\Roles\Plugin_Role;
 function setup() {
 
 	// Hooks for the WP plugins_loaded action.
-	add_action( 'wp_roles_init',      __NAMESPACE__ . '\add_plugin_role' );
+	// add_action( 'wp_roles_init',      __NAMESPACE__ . '\add_plugin_role' );
 }
 
 /**
@@ -33,9 +33,9 @@ function add_plugin_role( $wp_roles ) {
 	// Set up some capabilities.
 	$caps = array(
 		'read'            => true,
-		'edit_pages'      => true,
-		'edit_posts'      => true,
-		'upload_files'    => true,
+		// 'edit_pages'      => true,
+		// 'edit_posts'      => true,
+		// 'upload_files'    => true,
 		);
 
 	// Allow other code to override the caps for the role.
