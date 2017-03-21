@@ -130,8 +130,12 @@ function can_edit_current_openings_page( $caps, $cap, $user_id, $args ) {
 		$post = get_post( absint( $_POST['post_ID'] ) );
 	}
 
+	if ( empty( $post ) && isset( $_GET['post'] ) ) {
+		$post = get_post( absint( $_GET['post'] ) );
+	}
+
 	// Is this the Current Openings page?
-	if ( ! empty( $post ) && 'page' === $post->post_type && 'current-openings' === $post->post_name) {
+	if ( ! empty( $post ) && 'page' === $post->post_type && 'current-openings' === $post->post_name ) {
 		// Tell the user_has_cap filter that this user only needs the edit_pages capability
 		// in order to edit or publish the Current Openins page.
 		$caps = array( 'edit_pages' );
