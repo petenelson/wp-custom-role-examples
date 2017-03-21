@@ -9,8 +9,8 @@ namespace Custom_Role_Examples\Roles\Uh_Oh;
 
 
 function setup() {
-	add_filter( 'user_has_cap', __NAMESPACE__ . '\grant_any_cap' );
-	add_filter( 'map_meta_cap', __NAMESPACE__ . '\set_any_cap' );
+	// add_filter( 'user_has_cap', __NAMESPACE__ . '\grant_any_cap' );
+	// add_filter( 'map_meta_cap', __NAMESPACE__ . '\set_any_cap' );
 }
 
 /**
